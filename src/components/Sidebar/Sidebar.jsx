@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
+// import cvs_image from '../../assets/Store-logos/cvs.png';
+import target_image from '../../assets/Store-logos/target.png';
+import hannaford_image from '../../assets/Store-logos/hannaford.png';
+import shoprite_image from '../../assets/Store-logos/shoprite.png';
+
 import './Sidebar.css';
 
-
 const Sidebar = ({ setSelectedOption, showSidebar }) => {
+  const storeNum = 4;
+  const tabs = [
+    { name: 'CVS', icon: shoprite_image },
+    { name: 'Hannaford', icon: hannaford_image },
+    { name: 'ShopRite', icon: shoprite_image },
+    { name: 'Target', icon: target_image }
+  ];
+
   // State to track the selected menu item, defaulting to 'general'
   const [selectedItem, setSelectedItem] = useState('general');
-  // console.log("SIDEBAR: ",selectedAddress);
 
   // Function to handle menu item clicks
   const handleMenuItemClick = (itemName) => {
     setSelectedItem(itemName);
-    setSelectedOption(itemName); 
+    setSelectedOption(itemName);
   };
 
   return (
@@ -20,20 +31,18 @@ const Sidebar = ({ setSelectedOption, showSidebar }) => {
         </div>
 
         <div className="sidebar-menu">
-          <button className={`menu-item ${selectedItem === 'general' ? 'selected' : ''}`} onClick={() => handleMenuItemClick('general')}>
-            <span className="icon">🏠</span> X
-          </button>
-          <button className={`menu-item ${selectedItem === 'openAccount' ? 'selected' : ''}`} onClick={() => handleMenuItemClick('openAccount')}>
-            <span className="icon">👤</span> X
-          </button>
-          <button className={`menu-item ${selectedItem === 'applyLoan' ? 'selected' : ''}`} onClick={() => handleMenuItemClick('applyLoan')}>
-            <span className="icon">💰</span> X
-          </button>
-          <button className={`menu-item ${selectedItem === 'selectCreditCard' ? 'selected' : ''}`} onClick={() => handleMenuItemClick('selectCreditCard')}>
-            <span className="icon">💳</span> X
-          </button>
+          {tabs.slice(0, storeNum).map((tab, index) => (
+            <div key={index} className="menu-item-container">
+              <div
+                className={`menu-item ${selectedItem === tab.name ? 'selected' : ''}`}
+              >
+                <img src={tab.icon} alt="" className="logos"/>
+                {tab.name}
+                <input type="checkbox" className="checkbox" />
+              </div>
+            </div>
+          ))}
         </div>
-
       </div>
     </>
   );
