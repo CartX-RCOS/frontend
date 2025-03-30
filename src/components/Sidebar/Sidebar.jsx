@@ -20,10 +20,6 @@ const Sidebar = ({ showSidebar, setStores, cart, setCart }) => {
     setStores(selectedStoreNames);
   }, [selectedStores, setStores]);
 
-  useEffect(() => {
-    console.log("update");
-  }, [cart]);
-
   const toggleStoreSelection = (store) => {
     setSelectedStores(current =>
       current.map(item => (item.name === store ? { ...item, checked: !item.checked } : item))

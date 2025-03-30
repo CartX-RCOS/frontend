@@ -9,7 +9,7 @@ const Card = (props) => {
   const [productSize, setProductSize] = useState('');
   const [isClicked, setIsClicked] = useState(false);
 
-  useEffect(() => {
+  
   //   const checkImage = (url) => {
   //     return new Promise((resolve) => {
   //       const img = new Image();
@@ -38,19 +38,19 @@ const Card = (props) => {
     // };
 
     // findValidImage();
-    const formatProductSize = () => {
-      // Check if data.size contains any number
-      const containsNumber = /\d/.test(props.data.size);
-      if (!containsNumber && props.data.size && props.data.quantity) {
-        // Combine data.quantity and data.size if data.size has no number
-        return `${props.data.quantity} ${props.data.size}`;
-      }
-      // Return original size if condition not met
-      return props.data.size;
-    };
+  //   const formatProductSize = () => {
+  //     // Check if data.size contains any number
+  //     const containsNumber = /\d/.test(props.data.size);
+  //     if (!containsNumber && props.data.size) {
+  //       // Combine data.quantity and data.size if data.size has no number
+  //       return `${props.data.size}`;
+  //     }
+  //     // Return original size if condition not met
+  //     return props.data.size;
+  //   };
 
-    setProductSize(formatProductSize());
-  }, [props.data.images_links, props.data.matches, props.data.size, props.data.quantity]);
+  //   setProductSize(formatProductSize());
+  // }, [props.data.imageURL, props.data.size, props.data.price]);
 
 
   const handleAddToCart = (state) => {
@@ -68,6 +68,15 @@ const Card = (props) => {
   };
   // const isInCart = cartItems.some(item => item._id === data._id);
 
+  function checkImg(props) {
+    if (props.data.images_links){
+      return props.data.images_links[0];
+    }
+    else{
+      return props.data.image_links[0];
+    }
+  }
+
   return (
     <>
       <div className="product-card">
@@ -76,10 +85,10 @@ const Card = (props) => {
           aria-label="Add item"
           onClick={handleClick}
         />
-        <img src={props.data.images_links[0]} alt="Product name" />
+        <img src={checkImg(props)} alt="Product name" />
         <div className="info">
           <h3>{props.data.name}</h3>
-          <p>{productSize}</p>
+          <p>{props.data.size}</p>
         </div>
       </div>
     </>
